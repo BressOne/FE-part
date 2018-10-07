@@ -1,2 +1,0 @@
-# FE-part
-frontend part 
