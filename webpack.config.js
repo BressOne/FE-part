@@ -12,6 +12,28 @@ module.exports = {
         }
       },
       {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "fonts/[name].[ext]",
+          },
+        },
+      },
+      {
         test: /\.html$/,
         use: [
           {
@@ -31,5 +53,6 @@ module.exports = {
       filename: "./index.html"
     })
   ],
-  
+  devtool: 'eval-source-map',
 };
+

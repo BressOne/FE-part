@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 ReactDOM.render(
     <div>
     
-    <Register />
+    
     <Login />
     </div>,
     document.getElementById('main-wrapper')

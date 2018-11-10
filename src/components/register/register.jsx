@@ -18,8 +18,9 @@ function registerFetch() {
         },
         body: JSON.stringify(payload),
     }).then(function (response) {
-        document.getElementById('responseRegister').innerText = response;
-        console.log(response);
+        return response.json();
+    }).then(function (response) {
+        document.getElementById('responseRegister').innerText = response.message;
     }).catch(function (err) {
         document.getElementById('responseRegister').innerText = err;
         console.log(err);
