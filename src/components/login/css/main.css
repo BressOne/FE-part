@@ -142,13 +142,38 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #0250c5;
-  background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: -o-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: -moz-linear-gradient(bottom, #0250c5, #d43f8d);
-  background: linear-gradient(bottom, #0250c5, #d43f8d);
+
   position: relative;
   z-index: 1;
+
+  background: linear-gradient(1deg, #ea15f5, #4c00ff, #e42828, #0044ff);
+  background-size: 800% 800%;
+  
+  -webkit-animation: AnimationName1 5s ease infinite;
+  -moz-animation: AnimationName1 5s ease infinite;
+  animation: AnimationName1 5s ease infinite;
+  
+
+
+
+
+}
+
+
+@-webkit-keyframes AnimationName1 {
+	0%{background-position:0% 54%}
+	50%{background-position:100% 47%}
+	100%{background-position:0% 54%}
+}
+@-moz-keyframes AnimationName1 {
+	0%{background-position:0% 54%}
+	50%{background-position:100% 47%}
+	100%{background-position:0% 54%}
+}
+@keyframes AnimationName1 { 
+	0%{background-position:0% 54%}
+	50%{background-position:100% 47%}
+	100%{background-position:0% 54%}
 }
 
 .container-login100::before {
@@ -363,7 +388,7 @@ iframe {
   width: 100%;
   height: 62px;
   border-radius: 3px;
-  background: #d33f8d;
+  
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -377,7 +402,31 @@ iframe {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+
+  background: linear-gradient(270deg, #bc20c5, #0027ff, #e42828, #3096db);
+  background-size: 800% 800%;
+  
+  -webkit-animation: AnimationName 35s ease infinite;
+  -moz-animation: AnimationName 35s ease infinite;
+  animation: AnimationName 35s ease infinite;
 }
+  @-webkit-keyframes AnimationName {
+	  0%{background-position:0% 50%}
+	  50%{background-position:100% 50%}
+	  100%{background-position:0% 50%}
+  }
+  @-moz-keyframes AnimationName {
+	  0%{background-position:0% 50%}
+	  50%{background-position:100% 50%}
+	  100%{background-position:0% 50%}
+  }
+  @keyframes AnimationName { 
+	  0%{background-position:0% 50%}
+	  50%{background-position:100% 50%}
+	  100%{background-position:0% 50%}
+  }
+
+
 
 .login100-form-btn:hover {
   background: #333333;

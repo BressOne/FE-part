@@ -8,13 +8,16 @@ class RegisterForm extends Component {
         <div
           className='wrap-input100 validate-input m-b-16'
           data-validate='Valid e-mail: mail@domain.some'
-          id='email_wrapper'>
+          id='email_wrapper'
+          >
           <input
             className='input100'
             type='e-mail'
-            name='registeremail'
+            name='registerEmail'
             placeholder='mail@mail.com'
-            id='registeremail'
+            id='registerEmail'
+            onChange={this.props.onChange}
+            autoComplete="email"
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -28,10 +31,12 @@ class RegisterForm extends Component {
           id='username_wrapper'>
           <input
             className='input100'
-            type='e-mail'
-            name='registerusername'
-            placeholder='mail@mail.com'
+            type='username'
+            name='registerUserName'
+            placeholder='Username'
             id='registerusername'
+            onChange={this.props.onChange}
+            autoComplete="username"
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -46,9 +51,11 @@ class RegisterForm extends Component {
           <input
             className='input100'
             type='password'
-            name='registerpassword'
+            name='registerPassword'
             placeholder='Password'
             id='registerpassword'
+            onChange={this.props.onChange}
+            autoComplete="new-password"
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -63,9 +70,11 @@ class RegisterForm extends Component {
           <input
             className='input100'
             type='password'
-            name='loginpassword'
-            placeholder='Password'
+            name='registerPasswordConf'
+            placeholder='Confirm password'
             id='registerpasswordConf'
+            onChange={this.props.onChange}
+            autoComplete="new-password"
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
