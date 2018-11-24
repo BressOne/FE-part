@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import classNames from 'classnames'
 
 class LoginForm extends Component {
-  
-
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.props.loginFetch}>
         <div
           className={classNames('wrap-input100 validate-input m-b-16', {
-            'alert-validate': this.props.errorList.loginValidationError,
+            'alert-validate': this.props.errorList.loginValidationError
           })
           }
           data-validate={this.props.errorList.loginValidationError}
@@ -20,9 +18,8 @@ class LoginForm extends Component {
             name='loginUsername'
             placeholder='Username'
             id='loginusername'
-            autoComplete='username'
             onChange={this.props.onChange}
-            
+            autoComplete='username'
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>

@@ -6,8 +6,8 @@ class RegisterForm extends Component {
       <div>
           <div id="responseRegister"></div>
         <div
-          className='wrap-input100 validate-input m-b-16'
-          data-validate='Valid e-mail: mail@domain.some'
+          className={this.props.errorList.email ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
+          data-validate={this.props.errorList.email}
           id='email_wrapper'
           >
           <input
@@ -26,8 +26,8 @@ class RegisterForm extends Component {
         </div>
 
         <div
-          className='wrap-input100 validate-input m-b-16'
-          data-validate='A-z 0-9 alowed'
+          className={this.props.errorList.userName ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
+          data-validate={this.props.errorList.userName}
           id='username_wrapper'>
           <input
             className='input100'
@@ -45,8 +45,9 @@ class RegisterForm extends Component {
         </div>
 
         <div
-          className='wrap-input100 validate-input m-b-16'
-          data-validate='Password is required'
+          className={this.props.errorList.password ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
+          data-validate={this.props.errorList.password}
+
           id='password_wrapper'>
           <input
             className='input100'

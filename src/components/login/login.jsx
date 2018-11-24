@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import "./css/main.css";
+
 import LoginForm from "../loginform/loginform.jsx";
 import RegisterForm from "../registerform/registerform.jsx";
-import "../../modules/Validator/Validator.js";
+
 import {
   validateEmail,
   validateUserName,
   validatePassword
 } from "../../modules/Validator/Validator.js";
+
 
 class Login extends Component {
   constructor(props) {
@@ -31,26 +33,21 @@ class Login extends Component {
     this.loginFetch = this.loginFetch.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  errorList() {
+    return this.state.errors;
+  }
 
   handleChange(event) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
     this.setState({ formData });
   }
+
   registerFetch(event) {
     event.preventDefault();
     this.state.errors.email = "";
     this.state.errors.userName = "";
     this.state.errors.password = "";
-    document
-      .getElementById("email_wrapper")
-      .classList.remove("alert-validate");
-    document
-      .getElementById("username_wrapper")
-      .classList.remove("alert-validate");
-    document
-      .getElementById("password_wrapper")
-      .classList.remove("alert-validate");
     let payload = {
       email: this.state.formData.registerEmail,
       username: this.state.formData.registerUserName,
@@ -76,34 +73,16 @@ class Login extends Component {
 
         errors["email"] = emailValidationStatus.error;
         this.setState({ errors });
-        document
-          .getElementById("email_wrapper")
-          .setAttribute("data-validate", this.state.errors.email);
-        document
-          .getElementById("email_wrapper")
-          .classList.add("alert-validate");
       }
       if (!usernameValidationStatus.result) {
         const { errors } = this.state;
         errors["userName"] = usernameValidationStatus.error;
         this.setState({ errors });
-        document
-          .getElementById("username_wrapper")
-          .setAttribute("data-validate", this.state.errors.userName);
-        document
-          .getElementById("username_wrapper")
-          .classList.add("alert-validate");
       }
       if (!passwordValidationStatus.result) {
         const { errors } = this.state;
         errors["password"] = passwordValidationStatus.error;
         this.setState({ errors });
-        document
-          .getElementById("password_wrapper")
-          .setAttribute("data-validate", this.state.errors.password);
-        document
-          .getElementById("password_wrapper")
-          .classList.add("alert-validate");
       }
     } else {
       fetch("http://localhost:3000/register", {
@@ -127,34 +106,44 @@ class Login extends Component {
         });
     }
   }
+
   loginFetch(event) {
     event.preventDefault();
     let payload = {
       loginusername: this.state.formData.loginUsername,
       loginpassword: this.state.formData.loginPassword
     };
-    fetch("http://localhost:3000/login", {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    })
-      .then(function(response) {
-        return response.json();
+    const { errors } = this.state;
+    const thisClosure = this;
+    if (
+      !payload.loginusername ||
+      !payload.loginpassword ||
+      payload.loginusername < 6 ||
+      payload.loginpassword < 6
+    ) {
+      errors["loginValidationError"] = "Login/pass incorrect input";
+      thisClosure.setState({ errors });
+    } else {
+      fetch("http://localhost:3000/login", {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       })
-      .then(function(response) {
-        document
-          .getElementById("username_wrapper")
-          .setAttribute("data-validate", response.message);
-        document
-          .getElementById("username_wrapper")
-          .classList.add("alert-validate");
-      })
-      .catch(function(err) {
-        document.getElementById("username_wrapper").innerText = err;
-      });
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(response) {
+          errors["loginValidationError"] = "Login/pass is invalid";
+          thisClosure.setState({ errors });
+          console.log(response.message);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
   }
   handleSignUp() {
     this.setState({
@@ -180,12 +169,14 @@ class Login extends Component {
                   onSignUp={this.handleSignUp}
                   onLoginFetch={this.loginFetch}
                   onChange={this.handleChange}
+                  errorList={this.state.errors}
                 />
               ) : (
                 <RegisterForm
                   onLogin={this.handleLogin}
                   onRegisterFetch={this.registerFetch}
                   onChange={this.handleChange}
+                  errorList={this.state.errors}
                 />
               )}
             </div>
