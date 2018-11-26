@@ -1,23 +1,120 @@
 import React, { Component } from "react";
+import classNames from "classnames";
+
+import {
+  validateEmail,
+  validateUserName,
+  validatePassword
+} from "../../modules/Validator/Validator.js";
+import { runInThisContext } from "vm";
 
 class RegisterForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        registerEmail: "",
+        registerUserName: "",
+        registerPassword: "",
+        registerPasswordConf: ""
+      },
+      errors: {
+        registerEmail: "",
+        registerUserName: "",
+        registerPassword: ""
+      }
+    };
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangeUserName = this.handleChangeUserName.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangePasswordConf = this.handleChangePasswordConf.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChangeEmail(event) {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+    const { errors } = this.state;
+    errors[event.target.name] = validateEmail(event.target.value).error;
+    this.setState({ errors });
+  }
+  handleChangeUserName(event) {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+    const { errors } = this.state;
+    errors[event.target.name] = validateUserName(event.target.value).error;
+    this.setState({ errors });
+  }
+  handleChangePassword(event) {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+    const { errors } = this.state;
+    errors[event.target.name] = validatePassword(
+      event.target.value,
+      this.state.formData.registerPasswordConf
+    ).error;
+    this.setState({ errors });
+    console.log(this.state.errors);
+    console.log(this.state.formData);
+  }
+  handleChangePasswordConf(event) {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+    const { errors } = this.state;
+    errors.registerPassword = validatePassword(
+      this.state.formData.registerPassword,
+      event.target.value
+    ).error;
+    this.setState({ errors });
+    console.log(this.state.errors);
+    console.log(this.state.formData);
+  }
+  preSubmitValidation() {
+    const { errors } = this.state;
+    errors.registerEmail = validateEmail(
+      this.state.formData.registerEmail
+    ).error;
+    errors.registerPassword = validatePassword(
+      this.state.formData.registerPassword,
+      this.state.formData.registerPasswordConf
+    ).error;
+    errors.registerUserName = validateUserName(
+      this.state.formData.registerUserName
+    ).error;
+    this.setState({ errors });
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    this.preSubmitValidation();
+    let registerPayload = this.state.formData;
+    return !this.state.errors.registerEmail ||
+      this.state.errors.registerPassword ||
+      this.state.errors.registerUserName
+      ? this.props.onRegisterFetch(registerPayload.registerEmail, registerPayload.registerUserName, registerPayload.registerPassword, registerPayload.registerPasswordConf)
+      : null;
+  }
   render() {
     return (
-      <div>
-          <div id="responseRegister"></div>
+      <form onSubmit={this.handleSubmit}>
+        <div id='responseRegister' />
         <div
-          className={this.props.errorList.email ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
-          data-validate={this.props.errorList.email}
-          id='email_wrapper'
-          >
+          className={classNames("wrap-input100 validate-input m-b-16", {
+            "alert-validate": this.state.errors.registerEmail
+          })}
+          data-validate={this.state.errors.registerEmail}
+          id='email_wrapper'>
           <input
             className='input100'
             type='e-mail'
             name='registerEmail'
             placeholder='mail@mail.com'
             id='registerEmail'
-            onChange={this.props.onChange}
-            autoComplete="email"
+            onChange={this.handleChangeEmail}
+            value={this.state.formData.registerEmail}
+            autoComplete='email'
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -26,8 +123,10 @@ class RegisterForm extends Component {
         </div>
 
         <div
-          className={this.props.errorList.userName ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
-          data-validate={this.props.errorList.userName}
+          className={classNames("wrap-input100 validate-input m-b-16", {
+            "alert-validate": this.state.errors.registerUserName
+          })}
+          data-validate={this.state.errors.registerUserName}
           id='username_wrapper'>
           <input
             className='input100'
@@ -35,8 +134,9 @@ class RegisterForm extends Component {
             name='registerUserName'
             placeholder='Username'
             id='registerusername'
-            onChange={this.props.onChange}
-            autoComplete="username"
+            onChange={this.handleChangeUserName}
+            value={this.state.formData.registerUserName}
+            autoComplete='username'
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -45,9 +145,15 @@ class RegisterForm extends Component {
         </div>
 
         <div
-          className={this.props.errorList.password ? 'wrap-input100 validate-input m-b-16 alert-validate' : 'wrap-input100 validate-input m-b-16'}
-          data-validate={this.props.errorList.password}
-
+          className={classNames("wrap-input100 validate-input m-b-16", {
+            "alert-validate":
+              this.state.errors.registerPassword ||
+              this.state.errors.registerPasswordConf
+          })}
+          data-validate={
+            this.state.errors.registerPassword ||
+            this.state.errors.registerPasswordConf
+          }
           id='password_wrapper'>
           <input
             className='input100'
@@ -55,8 +161,9 @@ class RegisterForm extends Component {
             name='registerPassword'
             placeholder='Password'
             id='registerpassword'
-            onChange={this.props.onChange}
-            autoComplete="new-password"
+            onChange={this.handleChangePassword}
+            value={this.state.formData.registerPassword}
+            autoComplete='new-password'
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -66,7 +173,6 @@ class RegisterForm extends Component {
 
         <div
           className='wrap-input100 validate-input m-b-16'
-          data-validate='Passwords are not same'
           id='confpassword_wrapper'>
           <input
             className='input100'
@@ -74,8 +180,9 @@ class RegisterForm extends Component {
             name='registerPasswordConf'
             placeholder='Confirm password'
             id='registerpasswordConf'
-            onChange={this.props.onChange}
-            autoComplete="new-password"
+            onChange={this.handleChangePasswordConf}
+            value={this.state.formData.registerPasswordConf}
+            autoComplete='new-password'
           />
           <span className='focus-input100' />
           <span className='symbol-input100'>
@@ -84,7 +191,7 @@ class RegisterForm extends Component {
         </div>
 
         <div className='container-login100-form-btn p-t-25'>
-          <button className='login100-form-btn' onClick={this.props.onRegisterFetch}>
+          <button className='login100-form-btn' onClick={this.handleSubmit}>
             Register
           </button>
         </div>
@@ -96,7 +203,7 @@ class RegisterForm extends Component {
             Log in now
           </a>
         </div>
-      </div>
+      </form>
     );
   }
 }

@@ -4,157 +4,84 @@ import "./css/main.css";
 import LoginForm from "../loginform/loginform.jsx";
 import RegisterForm from "../registerform/registerform.jsx";
 
-import {
-  validateEmail,
-  validateUserName,
-  validatePassword
-} from "../../modules/Validator/Validator.js";
-
-
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginView: true,
-      formData: {
-        registerEmail: "",
-        registerUserName: "",
-        registerPassword: "",
-        registerPasswordConf: "",
-        loginUsername: "",
-        loginPassword: ""
-      },
-      errors: {}
+      responseMessge: ""
     };
 
-    this.handleSignUp = this.handleSignUp.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleSignUpSwitch = this.handleSignUpSwitch.bind(this);
     this.registerFetch = this.registerFetch.bind(this);
     this.loginFetch = this.loginFetch.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  errorList() {
-    return this.state.errors;
   }
 
-  handleChange(event) {
-    const { formData } = this.state;
-    formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-  }
-
-  registerFetch(event) {
-    event.preventDefault();
-    this.state.errors.email = "";
-    this.state.errors.userName = "";
-    this.state.errors.password = "";
+  registerFetch(email, userName, password, passwordConf) {
     let payload = {
-      email: this.state.formData.registerEmail,
-      username: this.state.formData.registerUserName,
-      password: this.state.formData.registerPassword,
-      passwordConf: this.state.formData.registerPasswordConf
+      email: email,
+      username: userName,
+      password: password,
+      passwordConf: passwordConf
     };
-    let emailValidationStatus = validateEmail(payload.email),
-      usernameValidationStatus = validateUserName(payload.username),
-      passwordValidationStatus = validatePassword(
-        payload.password,
-        payload.passwordConf
-      );
-
-    if (
-      !(
-        emailValidationStatus.result &&
-        usernameValidationStatus.result &&
-        passwordValidationStatus.result
-      )
-    ) {
-      if (!emailValidationStatus.result) {
-        const { errors } = this.state;
-
-        errors["email"] = emailValidationStatus.error;
-        this.setState({ errors });
-      }
-      if (!usernameValidationStatus.result) {
-        const { errors } = this.state;
-        errors["userName"] = usernameValidationStatus.error;
-        this.setState({ errors });
-      }
-      if (!passwordValidationStatus.result) {
-        const { errors } = this.state;
-        errors["password"] = passwordValidationStatus.error;
-        this.setState({ errors });
-      }
-    } else {
-      fetch("http://localhost:3000/register", {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+    let responseMessge = this.state.responseMessge;
+    let thisClosure = this;
+   
+    fetch("http://localhost:3000/register", {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(function(response) {
+        return response.json();
       })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(response) {
-          document.getElementById("responseRegister").innerText =
-            response.message;
-        })
-        .catch(function(err) {
-          document.getElementById("responseRegister").innerText = err;
-          console.log(err);
-        });
-    }
+      .then(function(response) {
+        responseMessge = response.message;
+        thisClosure.setState({ responseMessge });
+        console.log(response.message);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   }
 
-  loginFetch(event) {
-    event.preventDefault();
+  loginFetch(userName, password) {
     let payload = {
-      loginusername: this.state.formData.loginUsername,
-      loginpassword: this.state.formData.loginPassword
+      loginusername: userName,
+      loginpassword: password
     };
-    const { errors } = this.state;
-    const thisClosure = this;
-    if (
-      !payload.loginusername ||
-      !payload.loginpassword ||
-      payload.loginusername < 6 ||
-      payload.loginpassword < 6
-    ) {
-      errors["loginValidationError"] = "Login/pass incorrect input";
-      thisClosure.setState({ errors });
-    } else {
-      fetch("http://localhost:3000/login", {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+    let responseMessge = this.state.responseMessge;
+    let thisClosure = this;
+    fetch("http://localhost:3000/login", {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(function(response) {
+        return response.json();
       })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(response) {
-          errors["loginValidationError"] = "Login/pass is invalid";
-          thisClosure.setState({ errors });
-          console.log(response.message);
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    }
+      .then(function(response) {
+        responseMessge = response.message;
+        thisClosure.setState({ responseMessge });
+        console.log(response.message);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
   }
-  handleSignUp() {
+  handleSignUpSwitch() {
     this.setState({
-      loginView: false
+      loginView: !this.state.loginView,
+      responseMessge: ""
     });
   }
-  handleLogin() {
-    this.setState({
-      loginView: true
-    });
-  }
+
   render() {
     return (
       <div className='limiter'>
@@ -164,19 +91,16 @@ class Login extends Component {
               <span className='login100-form-title p-b-55'>
                 {this.state.loginView ? "Login" : "Register"}
               </span>
+              <div>{this.state.responseMessge ? this.state.responseMessge : null}</div>
               {this.state.loginView ? (
                 <LoginForm
-                  onSignUp={this.handleSignUp}
+                  onSignUp={this.handleSignUpSwitch}
                   onLoginFetch={this.loginFetch}
-                  onChange={this.handleChange}
-                  errorList={this.state.errors}
                 />
               ) : (
                 <RegisterForm
-                  onLogin={this.handleLogin}
+                  onLogin={this.handleSignUpSwitch}
                   onRegisterFetch={this.registerFetch}
-                  onChange={this.handleChange}
-                  errorList={this.state.errors}
                 />
               )}
             </div>
