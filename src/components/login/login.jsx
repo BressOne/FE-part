@@ -26,7 +26,7 @@ class Login extends Component {
     };
     let responseMessge = this.state.responseMessge;
     let thisClosure = this;
-   
+
     fetch("http://localhost:3000/register", {
       method: "post",
       headers: {
@@ -70,6 +70,11 @@ class Login extends Component {
         responseMessge = response.message;
         thisClosure.setState({ responseMessge });
         console.log(response.message);
+        if(response.loginPermission === true) {
+          console.log("Access permission")
+          thisClosure.props.handleLogin(true);
+            
+        }
       })
       .catch(function(err) {
         console.log(err);
@@ -91,7 +96,9 @@ class Login extends Component {
               <span className='login100-form-title p-b-55'>
                 {this.state.loginView ? "Login" : "Register"}
               </span>
-              <div>{this.state.responseMessge ? this.state.responseMessge : null}</div>
+              <div>
+                {this.state.responseMessge ? this.state.responseMessge : null}
+              </div>
               {this.state.loginView ? (
                 <LoginForm
                   onSignUp={this.handleSignUpSwitch}

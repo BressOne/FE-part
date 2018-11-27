@@ -6,7 +6,6 @@ import {
   validateUserName,
   validatePassword
 } from "../../modules/Validator/Validator.js";
-import { runInThisContext } from "vm";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -24,28 +23,28 @@ class RegisterForm extends Component {
         registerPassword: ""
       }
     };
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangeUserName = this.handleChangeUserName.bind(this);
+
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangePasswordConf = this.handleChangePasswordConf.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleChangeEmail(event) {
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUserNameChange = this.handleUserNameChange.bind(this);
+  };
+  handleInputChange(event, validateFunc) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
     this.setState({ formData });
     const { errors } = this.state;
-    errors[event.target.name] = validateEmail(event.target.value).error;
+    errors[event.target.name] = validateFunc(event.target.value).error;
     this.setState({ errors });
-  }
-  handleChangeUserName(event) {
-    const { formData } = this.state;
-    formData[event.target.name] = event.target.value;
-    this.setState({ formData });
-    const { errors } = this.state;
-    errors[event.target.name] = validateUserName(event.target.value).error;
-    this.setState({ errors });
-  }
+  };
+  handleEmailChange = event => {
+    this.handleInputChange(event, validateEmail);
+  };
+  handleUserNameChange = event => {
+    this.handleInputChange(event, validateUserName);
+  };
   handleChangePassword(event) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
@@ -58,7 +57,7 @@ class RegisterForm extends Component {
     this.setState({ errors });
     console.log(this.state.errors);
     console.log(this.state.formData);
-  }
+  };
   handleChangePasswordConf(event) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
@@ -71,7 +70,7 @@ class RegisterForm extends Component {
     this.setState({ errors });
     console.log(this.state.errors);
     console.log(this.state.formData);
-  }
+  };
   preSubmitValidation() {
     const { errors } = this.state;
     errors.registerEmail = validateEmail(
@@ -85,7 +84,7 @@ class RegisterForm extends Component {
       this.state.formData.registerUserName
     ).error;
     this.setState({ errors });
-  }
+  };
   handleSubmit(event) {
     event.preventDefault();
     this.preSubmitValidation();
@@ -93,9 +92,14 @@ class RegisterForm extends Component {
     return !this.state.errors.registerEmail ||
       this.state.errors.registerPassword ||
       this.state.errors.registerUserName
-      ? this.props.onRegisterFetch(registerPayload.registerEmail, registerPayload.registerUserName, registerPayload.registerPassword, registerPayload.registerPasswordConf)
+      ? this.props.onRegisterFetch(
+          registerPayload.registerEmail,
+          registerPayload.registerUserName,
+          registerPayload.registerPassword,
+          registerPayload.registerPasswordConf
+        )
       : null;
-  }
+  };
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -112,7 +116,7 @@ class RegisterForm extends Component {
             name='registerEmail'
             placeholder='mail@mail.com'
             id='registerEmail'
-            onChange={this.handleChangeEmail}
+            onChange={this.handleEmailChange}
             value={this.state.formData.registerEmail}
             autoComplete='email'
           />
@@ -134,7 +138,7 @@ class RegisterForm extends Component {
             name='registerUserName'
             placeholder='Username'
             id='registerusername'
-            onChange={this.handleChangeUserName}
+            onChange={this.handleUserNameChange}
             value={this.state.formData.registerUserName}
             autoComplete='username'
           />

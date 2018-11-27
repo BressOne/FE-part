@@ -1,3 +1,4 @@
+import Main from "./components/Main/Main.jsx";
 import Header from "./components/header/header.jsx";
 import Body from "./components/body/body.jsx";
 import Footer from "./components/footer/footer.jsx";
@@ -8,7 +9,7 @@ import ReactDOM from "react-dom";
 
 ReactDOM.render(
   <div>
-    <Login />
+    <Main />
   </div>,
   document.getElementById("main-wrapper")
 );
