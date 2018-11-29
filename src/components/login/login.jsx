@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import "./css/main.css";
+import React, { Component } from 'react';
+import './css/main.css';
 
-import LoginForm from "../loginform/loginform.jsx";
-import RegisterForm from "../registerform/registerform.jsx";
+import LoginForm from '../loginform/loginform.jsx';
+import RegisterForm from '../registerform/registerform.jsx';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginView: true,
-      responseMessge: ""
+      responseMessge: '',
     };
 
     this.handleSignUpSwitch = this.handleSignUpSwitch.bind(this);
@@ -18,72 +18,69 @@ class Login extends Component {
   }
 
   registerFetch(email, userName, password, passwordConf) {
-    let payload = {
-      email: email,
+    const payload = {
+      email,
       username: userName,
-      password: password,
-      passwordConf: passwordConf
+      password,
+      passwordConf,
     };
     let responseMessge = this.state.responseMessge;
-    let thisClosure = this;
+    const thisClosure = this;
 
-    fetch("http://localhost:3000/register", {
-      method: "post",
+    fetch('http://localhost:3000/register', {
+      method: 'post',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(response) {
+      .then(response => response.json())
+      .then((response) => {
         responseMessge = response.message;
         thisClosure.setState({ responseMessge });
         console.log(response.message);
       })
-      .catch(function(err) {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   loginFetch(userName, password) {
-    let payload = {
+    const payload = {
       loginusername: userName,
-      loginpassword: password
+      loginpassword: password,
     };
     let responseMessge = this.state.responseMessge;
-    let thisClosure = this;
-    fetch("http://localhost:3000/login", {
-      method: "post",
+    const thisClosure = this;
+    fetch('http://localhost:3000/login', {
+      method: 'post',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(response) {
+      .then(response => response.json())
+      .then((response) => {
         responseMessge = response.message;
         thisClosure.setState({ responseMessge });
         console.log(response.message);
-        if(response.loginPermission === true) {
-          console.log("Access permission")
+        if (response.loginPermission === true) {
+          console.log('Access permission');
           thisClosure.props.handleLogin(true);
-            
         }
       })
-      .catch(function(err) {
+
+      .catch((err) => {
         console.log(err);
       });
   }
+
   handleSignUpSwitch() {
     this.setState({
       loginView: !this.state.loginView,
-      responseMessge: ""
+      responseMessge: '',
     });
   }
 
@@ -94,7 +91,7 @@ class Login extends Component {
           <div className='wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30'>
             <div className='login100-form validate-form'>
               <span className='login100-form-title p-b-55'>
-                {this.state.loginView ? "Login" : "Register"}
+                {this.state.loginView ? 'Login' : 'Register'}
               </span>
               <div>
                 {this.state.responseMessge ? this.state.responseMessge : null}

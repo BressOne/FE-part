@@ -1,6 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-
 module.exports = {
   module: {
     rules: [
@@ -14,24 +13,24 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-          'file-loader',
+          "file-loader",
           {
-            loader: 'image-webpack-loader',
+            loader: "image-webpack-loader",
             options: {
               bypassOnDebug: true, // webpack@1.x
-              disable: true, // webpack@2.x and newer
-            },
-          },
-        ],
+              disable: true // webpack@2.x and newer
+            }
+          }
+        ]
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
         use: {
           loader: "file-loader",
           options: {
-            name: "fonts/[name].[ext]",
-          },
-        },
+            name: "fonts/[name].[ext]"
+          }
+        }
       },
       {
         test: /\.html$/,
@@ -43,7 +42,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ["babel-loader", "eslint-loader"]
       }
     ]
   },
@@ -53,6 +57,5 @@ module.exports = {
       filename: "./index.html"
     })
   ],
-  devtool: 'eval-source-map',
+  devtool: "eval-source-map"
 };
-

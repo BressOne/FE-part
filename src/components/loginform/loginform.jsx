@@ -1,48 +1,51 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import classNames from 'classnames';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formData: {
-        loginUsername: "",
-        loginPassword: ""
+        loginUsername: '',
+        loginPassword: '',
       },
       errors: {
-        loginValidationError: ""
-      }
+        loginValidationError: '',
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.loginValidation = this.loginValidation.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(event) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
     this.setState({ formData });
     this.loginValidation();
   }
+
   loginValidation() {
-    let payload = {
+    const payload = {
       loginUsername: this.state.formData.loginUsername,
-      loginPassword: this.state.formData.loginPassword
+      loginPassword: this.state.formData.loginPassword,
     };
 
     if (payload.loginUsername.length < 6 || payload.loginPassword.length < 6) {
       const { errors } = this.state;
-      errors["loginValidationError"] = "Login/pass incorrect input";
+      errors.loginValidationError = 'Login/pass incorrect input';
       this.setState({ errors });
     } else {
       const { errors } = this.state;
-      errors["loginValidationError"] = "";
+      errors.loginValidationError = '';
       this.setState({ errors });
     }
   }
+
   handleSubmit(event) {
-    let payload = {
+    const payload = {
       loginUsername: this.state.formData.loginUsername,
-      loginPassword: this.state.formData.loginPassword
+      loginPassword: this.state.formData.loginPassword,
     };
     event.preventDefault();
     this.loginValidation();
@@ -50,12 +53,13 @@ class LoginForm extends Component {
       ? this.props.onLoginFetch(payload.loginUsername, payload.loginPassword)
       : null;
   }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div
-          className={classNames("wrap-input100 validate-input m-b-16", {
-            "alert-validate": this.state.errors.loginValidationError
+          className={classNames('wrap-input100 validate-input m-b-16', {
+            'alert-validate': this.state.errors.loginValidationError,
           })}
           data-validate={this.state.errors.loginValidationError}
           id='username_wrapper'>
