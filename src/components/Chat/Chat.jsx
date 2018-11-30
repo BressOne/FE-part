@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import Head from '../header/header.jsx';
-import Body from '../Body/body.jsx';
-import Footer from '../Footer/footer.jsx';
+import List from '../List/List.jsx';
+import Conversation from '../Conversation/Conversation.jsx';
+
+
+import './chat.css';
 
 class Chat extends Component {
   render() {
-    return <div>
-              <Head />
-              <Body />
-              <Footer />
-          </div>;
+    return <div className="chat-main">
+      <div className="ui">
+        <List />
+        <Conversation />
+      </div>
+    </div>;
   }
 }
+
 
 export default Chat;

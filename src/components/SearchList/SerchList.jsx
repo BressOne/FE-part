@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Person from '../person/person.jsx';
+import Person from '../Person/Person.jsx';
+
 
 class SearchList extends Component {
   constructor(props) {
@@ -13,18 +14,15 @@ class SearchList extends Component {
     const array = Object.keys(list).map((key) => {
       return [list[key]];
     });
-
     return array.map(
       uname => <Person name={ uname } />,
     );
   }
 
-
   render() {
-    return <div id="list-contacts">
-      {this.makeResultList(this.props.searchResult)}
-
-    </div>;
+    return <menu className="list-friends">
+    {this.makeResultList(this.props.searchResult)}
+  </menu>
   }
 }
 

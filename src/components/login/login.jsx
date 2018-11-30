@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './css/main.css';
 
-import LoginForm from '../loginform/loginform.jsx';
-import RegisterForm from '../registerform/registerform.jsx';
+import LoginForm from '../Loginform/Loginform.jsx';
+import RegisterForm from '../Registerform/Registerform.jsx';
 
 class Login extends Component {
   constructor(props) {

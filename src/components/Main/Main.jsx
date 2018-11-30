@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login from '../login/login.jsx';
+import Login from '../Login/Login.jsx';
 import Chat from '../Chat/Chat.jsx';
 
 class Main extends Component {

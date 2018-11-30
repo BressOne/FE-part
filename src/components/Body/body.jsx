@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import List from '../list/list.jsx';
-import './body.css';
+import List from '../List/List.jsx';
+import Conversation from '../Conversation/Conversation.jsx';
 
 class Body extends Component {
   render() {
-    return <div id='body'>
-            <div id='body-list'>
-                <List />
-            </div>
-            <div id='body-dialogue'>
-                Dialogue
-        </div>
-        </div>;
+    return <div ClassName="ui">
+      <List />
+      <Conversation />
+    </div>
   }
 }
 

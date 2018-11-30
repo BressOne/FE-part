@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import './list.css';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import SearchList from '../SearchList/SerchList.jsx';
-
-library.add(faSearchPlus);
 
 
 class List extends Component {
@@ -26,7 +20,8 @@ class List extends Component {
     this.setState({ currentState });
   }
 
-  handleSearchFetch() {
+  handleSearchFetch(event) {
+    event.preventDefault();
     let searchResult = this.state.searchResult;
     const thisClosure = this;
     const payload = {
@@ -54,14 +49,12 @@ class List extends Component {
   }
 
   render() {
-    return <div id="list-wrapper">
-      <div id="list-cap">
-        <input type="text" id="list-cap-input" name="searchValue" onChange={ this.handleInputChange }></input>
-        <FontAwesomeIcon icon="search-plus" onClick={ this.handleSearchFetch } />
-      </div>
-      <div id="list-contacts">
-        <SearchList searchResult={ this.state.searchResult } />
-      </div>
+    return <div className="left-menu">
+      <form action="#" className="search" onSubmit={ this.handleSearchFetch } >
+        <input placeholder="search..." type="search" name="searchValue" onChange={ this.handleInputChange } />
+        <input type="submit" value="&#xf002;" />
+      </form>
+      <SearchList searchResult={ this.state.searchResult } />
     </div>;
   }
 }

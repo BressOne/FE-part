@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import './person.css';
+
 
 class Person extends Component {
   render() {
-    return <div id = "person-wrapper">
-        <div id = "person-avatar">
-
-        </div>
-        <div id = "person-name-message">
-            <div id = "person-name-name">
-                {this.props.name}
+    return <li>
+            <img width="50" height="50" src=""></img>
+            <div className="info">
+                <div className="user">{ this.props.name }</div>
+                <div className="status on"> online</div>
             </div>
-            <div id = "person-messge">
-                some message out here
-            </div>
-
-
-        </div>
-
-        </div>;
+        </li>
   }
 }
 
