@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import SearchList from '../SearchList/SerchList.jsx';
-
+import React, { Component } from "react";
+import SearchList from "../SearchList/SerchList.jsx";
 
 class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValue: '',
-      searchResult: {},
+      searchValue: "",
+      searchResult: {}
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,37 +24,44 @@ class List extends Component {
     let searchResult = this.state.searchResult;
     const thisClosure = this;
     const payload = {
-      searchValue: this.state.searchValue,
+      searchValue: this.state.searchValue
     };
 
-    fetch('http://localhost:3000/search_person', {
-      method: 'post',
+    fetch("http://localhost:3000/search_person", {
+      method: "post",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(payload)
     })
       .then(response => response.json())
-      .then((response) => {
+      .then(response => {
         console.log(response);
         searchResult = response.resultList;
         thisClosure.setState({ searchResult });
         console.log(this.state.searchResult);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
 
   render() {
-    return <div className="left-menu">
-      <form action="#" className="search" onSubmit={ this.handleSearchFetch } >
-        <input placeholder="search..." type="search" name="searchValue" onChange={ this.handleInputChange } />
-        <input type="submit" value="&#xf002;" />
-      </form>
-      <SearchList searchResult={ this.state.searchResult } />
-    </div>;
+    return (
+      <div className="left-menu">
+        <form action="#" className="search" onSubmit={this.handleSearchFetch}>
+          <input
+            placeholder="search..."
+            type="search"
+            name="searchValue"
+            onChange={this.handleInputChange}
+          />
+          <input type="submit" value="&#xf002;" />
+        </form>
+        <SearchList searchResult={this.state.searchResult} />
+      </div>
+    );
   }
 }
 

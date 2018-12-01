@@ -1,10 +1,10 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import Main from './components/Main/Main.jsx';
+import ReactDOM from "react-dom";
+import React from "react";
+import Main from "./components/Main/Main.jsx";
 
 ReactDOM.render(
   <div>
     <Main />
   </div>,
-  document.getElementById('main-wrapper'),
+  document.getElementById("main-wrapper")
 );
