@@ -44,13 +44,14 @@ class LoginForm extends Component {
 
   handleSubmit(event) {
     const payload = {
-      loginUsername: this.state.formData.loginUsername,
-      loginPassword: this.state.formData.loginPassword
+      username: this.state.formData.loginUsername,
+      password: this.state.formData.loginPassword
     };
+    console.log(payload);
     event.preventDefault();
     this.loginValidation();
     return !this.state.errors.loginValidationError
-      ? this.props.onLoginFetch(payload.loginUsername, payload.loginPassword)
+      ? this.props.onLoginFetch(payload.username, payload.password)
       : null;
   }
 
