@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import Cookies from "universal-cookie";
 
 class LoginForm extends Component {
   constructor(props) {

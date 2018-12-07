@@ -4,8 +4,6 @@ import "./css/main.css";
 import LoginForm from "../Loginform/Loginform.jsx";
 import RegisterForm from "../Registerform/Registerform.jsx";
 
-import Cookies from "universal-cookie";
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +54,7 @@ class Login extends Component {
     let responseMessge = this.state.responseMessge;
     const thisClosure = this;
     fetch("http://localhost:3000/login", {
+      credentials: "include",
       method: "post",
       headers: {
         Accept: "application/json",
@@ -63,29 +62,13 @@ class Login extends Component {
       },
       body: JSON.stringify(payload)
     })
-      .then(function(response) {
-        let cookie = response.headers.get("set-cookie");
-        const cookies = new Cookies();
-        cookies.set("connect.sid", cookie, {
-          path: "/"
-        });
-        console.log(cookies.get("connect.sid")); // Pacman
-
-        return response.json();
-      })
+      .then(response => response.json())
 
       .then(response => {
-        console.log(response);
-
         responseMessge = response.message;
         thisClosure.setState({ responseMessge });
 
         if (response.loginPermission === true) {
-          const cookies = new Cookies();
-          cookies.set("connect.sid", response.cookie, {
-            path: "/"
-          });
-
           thisClosure.props.handleLogin(true);
         }
       })
