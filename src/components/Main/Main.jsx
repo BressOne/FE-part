@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Login from "../Login/Login.jsx";
 import Chat from "../Chat/Chat.jsx";
-import { CookiesProvider } from "react-cookie";
-import Cookies from "universal-cookie";
 
 class Main extends Component {
   constructor(props) {
