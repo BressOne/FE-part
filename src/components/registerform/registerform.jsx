@@ -212,7 +212,11 @@ class RegisterForm extends Component {
         <div className="text-center w-full p-t-20">
           <span className="txt1">Already registered? </span>
 
-          <a className="txt1 hov1" href="#" onClick={this.props.onLogin}>
+          <a
+            className="txt1 hov1"
+            href="javascript:void(0);"
+            onClick={this.props.onLogin}
+          >
             Log in now
           </a>
         </div>

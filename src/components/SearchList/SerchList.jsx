@@ -4,15 +4,46 @@ import Person from "../Person/Person.jsx";
 class SearchList extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      responseMessge: ""
+    };
     this.makeResultList = this.makeResultList.bind(this);
+    this.handleAddContact = this.handleAddContact.bind(this);
+  }
+
+  handleAddContact(uname) {
+    let payload = { username: uname };
+    console.log(payload);
+    let responseMessge = this.state.responseMessge;
+    // const thisClosure = this;
+    fetch("http://localhost:3000/addContact", {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify(payload)
+    })
+      .then(response => response.json())
+
+      .then(response => {
+        responseMessge = response.message;
+        console.log(responseMessge);
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   makeResultList(list) {
     const array = Object.keys(list).map(key => {
       return [list[key]];
     });
-    return array.map(uname => <Person name={uname} />);
+    return array.map(uname => (
+      <Person name={uname} handleAddContact={this.handleAddContact} />
+    ));
   }
 
   render() {

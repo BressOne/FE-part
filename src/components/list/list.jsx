@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SearchList from "../SearchList/SerchList.jsx";
+import ContactList from "../ContactList/ContactList.jsx";
 
 class List extends Component {
   constructor(props) {
@@ -11,11 +12,18 @@ class List extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSearchFetch = this.handleSearchFetch.bind(this);
+    this.handleclearInput = this.handleclearInput.bind(this);
   }
 
   handleInputChange(event) {
     const currentState = this.state;
     currentState[event.target.name] = event.target.value;
+    this.setState({ currentState });
+  }
+
+  handleclearInput() {
+    const currentState = this.state;
+    currentState.searchValue = "";
     this.setState({ currentState });
   }
 
@@ -60,7 +68,21 @@ class List extends Component {
           />
           <input type="submit" value="&#xf002;" />
         </form>
-        <SearchList searchResult={this.state.searchResult} />
+        {this.state.searchValue ? (
+          <div className="search-result">
+            <button
+              type="submit"
+              className="contacts100-form-btn"
+              onClick={this.handleclearInput}
+            >
+              back
+            </button>
+
+            <SearchList searchResult={this.state.searchResult} />
+          </div>
+        ) : (
+          <ContactList />
+        )}
       </div>
     );
   }

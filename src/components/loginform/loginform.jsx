@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classNames from "classnames";
-import Cookies from "universal-cookie";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -115,7 +114,11 @@ class LoginForm extends Component {
 
         <div className="text-center w-full p-t-20">
           <span className="txt1">Not a member? </span>
-          <a className="txt1 hov1" href="#" onClick={this.props.onSignUp}>
+          <a
+            className="txt1 hov1"
+            href="javascript:void(0);"
+            onClick={this.props.onSignUp}
+          >
             Sign up now
           </a>
         </div>
