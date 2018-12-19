@@ -42,7 +42,11 @@ class SearchList extends Component {
       return [list[key]];
     });
     return array.map(uname => (
-      <Person name={uname} handleAddContact={this.handleAddContact} />
+      <Person
+        key={uname}
+        name={uname}
+        handleAddContact={this.handleAddContact}
+      />
     ));
   }
 

@@ -5,6 +5,7 @@
 	margin: 0px; 
 	padding: 0px; 
 	box-sizing: border-box;
+	transition: 0.3s ease;
 }
 
 body, html {

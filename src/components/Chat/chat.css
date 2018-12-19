@@ -115,7 +115,7 @@
 .ui .search input[type="submit"] {
   font-family: "FontAwesome";
   position: absolute;
-  right: 0px;
+  right: 3%;
   top: 27px;
   color: white;
 }
@@ -131,12 +131,11 @@
 .ui .left-menu {
   width: 200px;
   box-sizing: content-box;
-  padding-right: 1%;
+
   height: 100%;
   background: #434753;
 }
 .ui .chat {
-  /* width: auto; */
   flex-grow: 1;
   height: 100%;
   background: #f1f5f8;
@@ -183,7 +182,9 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin: 0 0 10px 10px;
+  position: relative;
+  width: 100%;
+  padding: 5px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -394,6 +395,10 @@
   opacity: 0.5;
   color: gray;
 }
+.container-li:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+}
 
 .icon {
   color: white;
@@ -404,6 +409,45 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
+}
+.icon-delete {
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.container-remove {
+  position: absolute;
+  top: 10%;
+  left: 95%;
+  display: block;
+}
+.overlay-delete {
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.3s ease;
+  background-color: gray;
+}
+
+.container:hover .overlay-delete {
+  opacity: 0.5;
+  color: gray;
+}
+
+.container-li:hover .overlay-delete {
+  opacity: 0.5;
+  color: gray;
 }
 
 .contacts100-form-btn {

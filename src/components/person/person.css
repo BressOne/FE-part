@@ -1,26 +1,25 @@
 #person-wrapper {
-    padding: 10px 0 10px 0;
-    width: 100%;
-    display: flex;
-    border-bottom: 1px solid  #a9adb1;
+  padding: 10px 0 10px 0;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #a9adb1;
 }
 
 #person-avatar {
-    border-radius: 50%;
-    background-color: blueviolet;
-    height: 37px;
-    width: 37px;
-    
+  border-radius: 50%;
+  background-color: blueviolet;
+  height: 37px;
+  width: 37px;
 }
 
 #person-name-message {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 #person-name-name {
-    color: black;
+  color: black;
 }
 
 #person-messge {
-    color: gray;
+  color: gray;
 }

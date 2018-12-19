@@ -19,6 +19,9 @@ class List extends Component {
     const currentState = this.state;
     currentState[event.target.name] = event.target.value;
     this.setState({ currentState });
+    if (this.state.searchValue) {
+      this.handleSearchFetch(event);
+    }
   }
 
   handleclearInput() {
@@ -65,6 +68,7 @@ class List extends Component {
             type="search"
             name="searchValue"
             onChange={this.handleInputChange}
+            value={this.state.searchValue}
           />
           <input type="submit" value="&#xf002;" />
         </form>
