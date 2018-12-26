@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import List from "../List/List.jsx";
 import Conversation from "../Conversation/Conversation.jsx";
 
+import AppContextProvider from "../Context/Context.jsx";
+
 import "./chat.css";
 
 class Chat extends Component {
@@ -9,8 +11,10 @@ class Chat extends Component {
     return (
       <div className="chat-main">
         <div className="ui">
-          <List />
-          <Conversation />
+          <AppContextProvider>
+            <List />
+            <Conversation />
+          </AppContextProvider>
         </div>
       </div>
     );

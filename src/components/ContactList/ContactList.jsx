@@ -27,10 +27,6 @@ class SearchList extends Component {
       .then(response => response.json())
 
       .then(array => {
-        // console.log(list);
-        // const array = Object.keys(list).map(key => {
-        //   return [list[key]];
-        // });
         console.log(array);
         return array.map(uname => (
           <Person

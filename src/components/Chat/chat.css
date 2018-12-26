@@ -175,6 +175,11 @@
   list-style: none;
   font-size: 13px;
   height: 88%;
+  overflow-y: scroll;
+}
+
+.ui .list-friends::-webkit-scrollbar {
+  display: none;
 }
 
 .ui .list-friends > li {
