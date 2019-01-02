@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import SearchList from "../SearchList/SerchList.jsx";
 import ContactList from "../ContactList/ContactList.jsx";
 
+import AppContextProvider from "../Context/Context.jsx";
+
 class List extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,7 @@ class List extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSearchFetch = this.handleSearchFetch.bind(this);
     this.handleclearInput = this.handleclearInput.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   handleInputChange(event) {
@@ -59,35 +62,72 @@ class List extends Component {
       });
   }
 
+  handleLogOut(event) {
+    fetch("http://localhost:3000/logout", {
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
-      <div className="left-menu">
-        <form action="#" className="search" onSubmit={this.handleSearchFetch}>
-          <input
-            placeholder="search..."
-            type="search"
-            name="searchValue"
-            onChange={this.handleInputChange}
-            value={this.state.searchValue}
-          />
-          <input type="submit" value="&#xf002;" />
-        </form>
-        {this.state.searchValue ? (
-          <div className="search-result">
-            <button
-              type="submit"
-              className="contacts100-form-btn"
-              onClick={this.handleclearInput}
-            >
-              back
-            </button>
+      <AppContextProvider.Consumer>
+        {({ update, states }) => (
+          <div className="left-menu">
+            <div className="left-menu-wrapper">
+              <form
+                action="#"
+                className="search"
+                onSubmit={this.handleSearchFetch}
+              >
+                <input
+                  placeholder="search..."
+                  type="search"
+                  name="searchValue"
+                  onChange={this.handleInputChange}
+                  value={this.state.searchValue}
+                />
+                <input type="submit" value="&#xf002;" />
+              </form>
+              {this.state.searchValue ? (
+                <div className="search-result">
+                  <button
+                    type="submit"
+                    className="contacts100-form-btn"
+                    onClick={this.handleclearInput}
+                  >
+                    back
+                  </button>
 
-            <SearchList searchResult={this.state.searchResult} />
+                  <SearchList searchResult={this.state.searchResult} />
+                </div>
+              ) : (
+                <ContactList />
+              )}
+            </div>
+            <button
+              onClick={e => {
+                this.handleLogOut();
+                states.isLoggedIn = false;
+              }}
+              className="logout-btn"
+            >
+              logout
+            </button>
           </div>
-        ) : (
-          <ContactList />
         )}
-      </div>
+      </AppContextProvider.Consumer>
     );
   }
 }

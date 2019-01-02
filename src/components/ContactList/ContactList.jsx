@@ -38,7 +38,6 @@ class SearchList extends Component {
       })
       .then(array => {
         thisClosure.setState({ contactList: array });
-        console.log(thisClosure.contactList);
       })
       .catch(err => {
         console.log(err);

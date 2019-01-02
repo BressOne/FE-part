@@ -131,6 +131,9 @@
 .ui .left-menu {
   width: 200px;
   box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   height: 100%;
   background: #434753;
@@ -232,10 +235,13 @@
 }
 .ui .messages {
   height: calc(100% - 70px - 150px);
+  display: flex;
+  flex-direction: column;
   list-style: none;
   border: 2px solid #fff;
   border-left: none;
   border-right: none;
+  overflow-y: scroll;
 }
 .ui .messages li {
   margin: 10px;
@@ -302,22 +308,22 @@
   left: 16px;
   border-bottom-color: #62bf6e;
 }
-.ui .messages li.i .head {
+.ui .messages li.i-am .head {
   text-align: right;
 }
-.ui .messages li.i .name {
+.ui .messages li.i-am .name {
   margin-right: 20px;
 }
-.ui .messages li.i .name:after {
+.ui .messages li.i-am .name:after {
   background-color: #7bc4ef;
   right: -20px;
   top: 6px;
 }
-.ui .messages li.i .message {
+.ui .messages li.i-am .message {
   background-color: #7bc4ef;
   float: right;
 }
-.ui .messages li.i .message:before {
+.ui .messages li.i-am .message:before {
   right: 16px;
   border-bottom-color: #7bc4ef;
 }
@@ -487,6 +493,42 @@
   -moz-animation: AnimationName 35s ease infinite;
   animation: AnimationName 35s ease infinite;
 }
+.logout-btn:hover {
+  background: #333333;
+}
+.logout-btn {
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  width: 60%;
+  height: 35px;
+  border-radius: 3px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  background: linear-gradient(270deg, #434753, #31656e);
+  background-size: 800% 800%;
+
+  -webkit-animation: AnimationName 35s ease infinite;
+  -moz-animation: AnimationName 35s ease infinite;
+  animation: AnimationName 35s ease infinite;
+}
 @-webkit-keyframes AnimationName {
   0% {
     background-position: 0% 50%;
@@ -526,5 +568,11 @@
 }
 
 .search-result {
-  display: block;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-menu-wrapper {
+  display: flex;
+  flex-direction: column;
 }

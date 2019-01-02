@@ -116,7 +116,7 @@ class LoginForm extends Component {
           <span className="txt1">Not a member? </span>
           <a
             className="txt1 hov1"
-            // href="javascript:void(0);"
+            href="javascript:void(0);"
             onClick={this.props.onSignUp}
           >
             Sign up now

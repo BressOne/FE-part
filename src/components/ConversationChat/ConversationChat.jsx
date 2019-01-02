@@ -1,38 +1,62 @@
 import React, { Component } from "react";
 
+import AppContextProvider from "../Context/Context.jsx";
+
+import ChatMessage from "../ChatMessage/ChatMessage.jsx";
+
 class ConversationChat extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedUser: ""
+    };
+
+    this.handleSearchFetch = this.handleSearchFetch.bind(this);
+  }
+  handleSearchFetch(event, username) {
+    event.preventDefault();
+    const payload = {
+      username: username
+    };
+
+    fetch("http://localhost:3000/getDialogueMessages", {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify(payload)
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
-      <ul className="messages">
-        <li className="i">
-          <div className="head">
-            <span className="time">10:13 AM, Today</span>
-            <span className="name">Буль</span>
-          </div>
-          <div className="message">Привет!</div>
-        </li>
-        <li className="i">
-          <div className="head">
-            <span className="time">10:13 AM, Today</span>
-            <span className="name">Буль</span>
-          </div>
-          <div className="message">)</div>
-        </li>
-        <li className="i">
-          <div className="head">
-            <span className="time">10:14 AM, Today</span>
-            <span className="name">Буль</span>
-          </div>
-          <div className="message">М не счастья..</div>
-        </li>
-        <li className="friend-with-a-SVAGina">
-          <div className="head">
-            <span className="name">Юния</span>
-            <span className="time">10:15 AM, Today</span>
-          </div>
-          <div className="message">чего тебе?</div>
-        </li>
-      </ul>
+      <AppContextProvider.Consumer>
+        {({ update, states }) =>
+          states.selectedUser ? (
+            <ul
+              className="messages"
+              onClick={event =>
+                this.handleSearchFetch(event, states.selectedUser)
+              }
+            >
+              <ChatMessage isVisavee={true} />
+              <ChatMessage isVisavee={false} />
+              <ChatMessage isVisavee={true} />
+            </ul>
+          ) : (
+            <div className="_" />
+          )
+        }
+      </AppContextProvider.Consumer>
     );
   }
 }
