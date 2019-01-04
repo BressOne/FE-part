@@ -27,7 +27,6 @@ class SearchList extends Component {
       .then(response => response.json())
 
       .then(array => {
-        console.log(array);
         return array.map(uname => (
           <Person
             key={uname}
@@ -59,7 +58,6 @@ class SearchList extends Component {
 
       .then(response => {
         responseMessge = response.message;
-        console.log(responseMessge);
         this.getContactList();
       })
 

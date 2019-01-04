@@ -52,17 +52,15 @@ class List extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         searchResult = response.resultList;
         thisClosure.setState({ searchResult });
-        console.log(this.state.searchResult);
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  handleLogOut(event) {
+  handleLogOut(event, logout) {
     fetch("http://localhost:3000/logout", {
       method: "get",
       headers: {
@@ -74,6 +72,7 @@ class List extends Component {
       .then(response => response.json())
       .then(response => {
         console.log(response);
+        logout({ isLoggedIn: false });
       })
       .catch(err => {
         console.log(err);
@@ -83,7 +82,7 @@ class List extends Component {
   render() {
     return (
       <AppContextProvider.Consumer>
-        {({ update, states }) => (
+        {({ update, states, logout }) => (
           <div className="left-menu">
             <div className="left-menu-wrapper">
               <form
@@ -118,8 +117,7 @@ class List extends Component {
             </div>
             <button
               onClick={e => {
-                this.handleLogOut();
-                states.isLoggedIn = false;
+                this.handleLogOut(e, logout);
               }}
               className="logout-btn"
             >

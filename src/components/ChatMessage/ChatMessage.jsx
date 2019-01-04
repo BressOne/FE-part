@@ -3,6 +3,38 @@ import AppContextProvider from "../Context/Context.jsx";
 import classNames from "classnames";
 
 class ChatMessage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: ""
+    };
+
+    this.calculateDate = this.calculateDate.bind(this);
+  }
+  calculateDate(propsDate) {
+    let incomingDate = new Date(propsDate).toString();
+    let today = Date(Date.now());
+    let dateString = "";
+    if (
+      incomingDate.getFullYear() === today.getFullYear() &&
+      incomingDate.getMonth() === today.getMonth() &&
+      incomingDate.getDate() === today.getDate()
+    ) {
+      dateString =
+        "Today, " + incomingDate.getHours() + "-" + propsDate.getMinutes();
+    } else {
+      dateString =
+        incomingDate.getMonth() +
+        "." +
+        incomingDate.getDate() +
+        " " +
+        incomingDate.getHours() +
+        "-" +
+        incomingDate.getMinutes();
+    }
+    return dateString;
+  }
+
   render() {
     return (
       <AppContextProvider.Consumer>
@@ -16,12 +48,14 @@ class ChatMessage extends Component {
             )}
           >
             <div className="head">
-              <span className="time">10:14 AM, Today</span>
+              <span className="time">
+                {new Date(this.props.date).toString()}
+              </span>
               <span className="name">
                 {this.props.isVisavee ? states.selectedUser : "You"}
               </span>
             </div>
-            <div className="message">М не счастья..</div>
+            <div className="message">{this.props.content}</div>
           </li>
         )}
       </AppContextProvider.Consumer>

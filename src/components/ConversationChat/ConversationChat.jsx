@@ -8,12 +8,14 @@ class ConversationChat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUser: ""
+      selectedUser: "",
+      conversationList: []
     };
 
     this.handleSearchFetch = this.handleSearchFetch.bind(this);
   }
   handleSearchFetch(event, username) {
+    const thisClosure = this;
     event.preventDefault();
     const payload = {
       username: username
@@ -30,7 +32,16 @@ class ConversationChat extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        let result = response.map((item, i) => (
+          <ChatMessage
+            key={item.dateTime + i}
+            isVisavee={item.sender === "You" ? false : true}
+            content={item.content}
+            date={item.dateTime}
+          />
+        ));
+        result.reverse();
+        thisClosure.setState({ conversationList: result });
       })
       .catch(err => {
         console.log(err);
@@ -44,13 +55,11 @@ class ConversationChat extends Component {
           states.selectedUser ? (
             <ul
               className="messages"
-              onClick={event =>
-                this.handleSearchFetch(event, states.selectedUser)
-              }
+              onClick={event => {
+                this.handleSearchFetch(event, states.selectedUser);
+              }}
             >
-              <ChatMessage isVisavee={true} />
-              <ChatMessage isVisavee={false} />
-              <ChatMessage isVisavee={true} />
+              {this.state.conversationList}
             </ul>
           ) : (
             <div className="_" />

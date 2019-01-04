@@ -47,7 +47,6 @@ class LoginForm extends Component {
       username: this.state.formData.loginUsername,
       password: this.state.formData.loginPassword
     };
-    console.log(payload);
     event.preventDefault();
     this.loginValidation();
     return !this.state.errors.loginValidationError
