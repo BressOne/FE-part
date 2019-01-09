@@ -41,7 +41,7 @@ class List extends Component {
       searchValue: this.state.searchValue
     };
 
-    fetch("http://localhost:3000/search_person", {
+    fetch("http://git.heroku.com/chat-back-end.git:3000/search_person", {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -61,7 +61,7 @@ class List extends Component {
   }
 
   handleLogOut(event, logout) {
-    fetch("http://localhost:3000/logout", {
+    fetch("http://git.heroku.com/chat-back-end.git:3000/logout", {
       method: "get",
       headers: {
         Accept: "application/json",
