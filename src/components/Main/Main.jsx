@@ -23,7 +23,7 @@ class Main extends Component {
   handshake() {
     const thisClosure = this;
 
-    fetch("https://git.heroku.com/chat-back-end.git:3000/handshake", {
+    fetch("https://chat-back-end.herokuapp.com:3000/handshake", {
       credentials: "include",
       method: "get",
       headers: {
