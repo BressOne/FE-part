@@ -24,7 +24,7 @@ class ConversationWriteForm extends Component {
       toUsername: states.selectedUser,
       message: this.state.formMessage
     };
-    fetch("https://chat-back-end.herokuapp.com:3000/postMessage", {
+    fetch("https://chat-back-end.herokuapp.com/postMessage", {
       credentials: "include",
       method: "post",
       headers: {

@@ -1,4 +1,4 @@
-const serverUrl = "https://chat-back-end.herokuapp.com:3000";
+const serverUrl = "https://chat-back-end.herokuapp.com";
 
 export const post = (url, payload) => {
   return fetch(`${serverUrl}/${url}`, {
