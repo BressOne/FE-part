@@ -1,4 +1,4 @@
-let apiAdress = "http://git.heroku.com/chat-back-end.git:3000";
+let apiAdress = "https://git.heroku.com/chat-back-end.git:3000";
 
 export function apiCall(url, options) {
   return fetch(url, options).then(response => {
