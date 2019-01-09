@@ -21,7 +21,7 @@ class ConversationChat extends Component {
       username: username
     };
 
-    fetch("http://git.heroku.com/chat-back-end.git:3000/getDialogueMessages", {
+    fetch("https://git.heroku.com/chat-back-end.git:3000/getDialogueMessages", {
       method: "post",
       headers: {
         Accept: "application/json",
