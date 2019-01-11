@@ -16,7 +16,7 @@ class SearchList extends Component {
   }
   getContactList() {
     const thisClosure = this;
-    fetch("https://chat-back-end.herokuapp.com/getContacts", {
+    fetch("http://localhost:3000/getContacts", {
       method: "get",
       headers: {
         Accept: "application/json",
@@ -45,7 +45,7 @@ class SearchList extends Component {
   handleRemoveContact(uname) {
     let payload = { username: uname };
     let responseMessge = this.state.responseMessge;
-    fetch("https://chat-back-end.herokuapp.com/deleteContact", {
+    fetch("http://localhost:3000/deleteContact", {
       method: "delete",
       headers: {
         Accept: "application/json",

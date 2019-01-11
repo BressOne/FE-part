@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import AppContextProvider from "../Context/Context.jsx";
 
+import openSocket from "socket.io-client";
+const socket = openSocket("http://localhost:8000");
+
 class ConversationWriteForm extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +14,16 @@ class ConversationWriteForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.sendMessageFetch = this.sendMessageFetch.bind(this);
+    this.sendSocketIO = this.sendSocketIO.bind(this);
+  }
+  sendSocketIO(states) {
+    const payload = {
+      toUsername: states.selectedUser,
+      message: this.state.formMessage,
+      cookie: document.cookie
+    };
+    console.log(payload);
+    socket.emit("message_emit_sent", payload);
   }
 
   handleInputChange(event) {
@@ -24,7 +37,7 @@ class ConversationWriteForm extends Component {
       toUsername: states.selectedUser,
       message: this.state.formMessage
     };
-    fetch("https://chat-back-end.herokuapp.com/postMessage", {
+    fetch("http://localhost:3000/postMessage", {
       credentials: "include",
       method: "post",
       headers: {
@@ -62,7 +75,10 @@ class ConversationWriteForm extends Component {
               <i className="fa fa-file-o" /> */}
               <span
                 className="send"
-                onClick={e => this.sendMessageFetch(e, states)}
+                onClick={e => {
+                  this.sendMessageFetch(e, states);
+                  this.sendSocketIO(states);
+                }}
               >
                 Send
               </span>

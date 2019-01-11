@@ -16,7 +16,7 @@ class SearchList extends Component {
     console.log(payload);
     let responseMessge = this.state.responseMessge;
     // const thisClosure = this;
-    fetch("https://chat-back-end.herokuapp.com/addContact", {
+    fetch("http://localhost:3000/addContact", {
       method: "post",
       headers: {
         Accept: "application/json",
