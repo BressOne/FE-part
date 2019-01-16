@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 
-import AppContextProvider from "../Context/Context.jsx";
+//import AppContextProvider from "../Context/Context.jsx";
 
 import ChatMessage from "../ChatMessage/ChatMessage.jsx";
-import ConversationChatChild from "../ConversationChatChild/ConversationChatChild.jsx";
 
-class ConversationChat extends Component {
+class ConversationChatChild extends Component {
+  // componentDidMount() {
+  //   this.handleSearchFetch(this.props.selectedUser);
+  // }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,9 +19,8 @@ class ConversationChat extends Component {
     this.handleSearchFetch = this.handleSearchFetch.bind(this);
   }
 
-  handleSearchFetch(event, username) {
+  handleSearchFetch(username) {
     const thisClosure = this;
-    event.preventDefault();
     const payload = {
       username: username
     };
@@ -52,24 +54,20 @@ class ConversationChat extends Component {
 
   render() {
     return (
-      <AppContextProvider.Consumer>
-        {({ update, states }) =>
-          states.selectedUser ? (
-            <ConversationChatChild selectedUser={states.selectedUser} />
-          ) : (
-            // <ul
-            //   className="messages"
-            //   onClick={event => {
-            //     this.handleSearchFetch(event, states.selectedUser);
-            //   }}
-            // >
-            //   {this.state.conversationList}
-            // </ul>
-            <div className="_" />
-          )
-        }
-      </AppContextProvider.Consumer>
+      // <AppContextProvider.Consumer>
+      //   {({ update, states }) => (
+      <ul
+        className="messages"
+        onClick={event => {
+          this.handleSearchFetch(event, this.props.selectedUser);
+        }}
+      >
+        {this.state.conversationList}
+      </ul>
+      //   )}
+      //   }
+      // </AppContextProvider.Consumer>
     );
   }
 }
-export default ConversationChat;
+export default ConversationChatChild;

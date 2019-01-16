@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import AppContextProvider from "../Context/Context.jsx";
 
 import openSocket from "socket.io-client";
-const socket = openSocket("http://localhost:8000");
+let socket = {};
 
 class ConversationWriteForm extends Component {
   constructor(props) {
@@ -17,12 +17,17 @@ class ConversationWriteForm extends Component {
     this.sendSocketIO = this.sendSocketIO.bind(this);
   }
   sendSocketIO(states) {
+    socket = openSocket("http://localhost:8000", {
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: Infinity
+    });
     const payload = {
       toUsername: states.selectedUser,
-      message: this.state.formMessage,
-      cookie: document.cookie
+      message: this.state.formMessage
     };
-    console.log(payload);
+
     socket.emit("message_emit_sent", payload);
   }
 
