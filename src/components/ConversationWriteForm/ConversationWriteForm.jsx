@@ -13,7 +13,7 @@ class ConversationWriteForm extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.sendMessageFetch = this.sendMessageFetch.bind(this);
+    // this.sendMessageFetch = this.sendMessageFetch.bind(this);
     this.sendSocketIO = this.sendSocketIO.bind(this);
   }
   sendSocketIO(states) {
@@ -29,6 +29,7 @@ class ConversationWriteForm extends Component {
     };
 
     socket.emit("message_emit_sent", payload);
+    this.setState({ formMessage: "" });
   }
 
   handleInputChange(event) {
@@ -37,30 +38,32 @@ class ConversationWriteForm extends Component {
     this.setState({ currentState });
   }
 
-  sendMessageFetch(event, states) {
-    const payload = {
-      toUsername: states.selectedUser,
-      message: this.state.formMessage
-    };
-    fetch("http://localhost:3000/postMessage", {
-      credentials: "include",
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    })
-      .then(response => response.json())
+  // sendMessageFetch(event, states) {
+  //   let thisClosure = this;
+  //   const payload = {
+  //     toUsername: states.selectedUser,
+  //     message: this.state.formMessage
+  //   };
+  //   fetch("http://localhost:3000/postMessage", {
+  //     credentials: "include",
+  //     method: "post",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(payload)
+  //   })
+  //     .then(response => response.json())
 
-      .then(response => {
-        console.log(response.message);
-      })
+  //     .then(response => {
+  //       console.log(response.message);
+  //     })
 
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  //     .catch(err => {
+  //       console.log(err);
+  //       thisClosure.setState({ formMessage: "" });
+  //     });
+  // }
 
   render() {
     return (
@@ -81,8 +84,7 @@ class ConversationWriteForm extends Component {
               <span
                 className="send"
                 onClick={e => {
-                  this.sendMessageFetch(e, states);
-                  this.sendSocketIO(states);
+                  this.sendSocketIO(states, e);
                 }}
               >
                 Send

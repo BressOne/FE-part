@@ -5,9 +5,9 @@ import React, { Component } from "react";
 import ChatMessage from "../ChatMessage/ChatMessage.jsx";
 
 class ConversationChatChild extends Component {
-  // componentDidMount() {
-  //   this.handleSearchFetch(this.props.selectedUser);
-  // }
+  componentDidMount() {
+    this.handleSearchFetch(this.props.selectedUser);
+  }
 
   constructor(props) {
     super(props);
@@ -59,7 +59,7 @@ class ConversationChatChild extends Component {
       <ul
         className="messages"
         onClick={event => {
-          this.handleSearchFetch(event, this.props.selectedUser);
+          this.handleSearchFetch(this.props.selectedUser, event);
         }}
       >
         {this.state.conversationList}
