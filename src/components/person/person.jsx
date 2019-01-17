@@ -39,11 +39,7 @@ class Person extends Component {
             </div>
             <div className="info">
               <div className="user">{this.props.name}</div>
-<<<<<<< HEAD
               {this.props.onlineStatus ? (
-=======
-              {this.propsonlineStatus ? (
->>>>>>> fb5673cca4e3921de7d58fe08066ce42eadb60ef
                 <div className="status on"> online</div>
               ) : (
                 <div className="status off"> offline</div>
