@@ -41,11 +41,13 @@ class SearchList extends Component {
     const array = Object.keys(list).map(key => {
       return [list[key]];
     });
+
     return array.map(uname => (
       <Person
-        key={uname}
-        name={uname}
+        key={uname[0].name + Math.random()}
+        name={uname[0].name}
         handleAddContact={this.handleAddContact}
+        onlineStatus={uname[0].onlineStatus}
       />
     ));
   }

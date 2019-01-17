@@ -29,9 +29,10 @@ class SearchList extends Component {
       .then(array => {
         return array.map(uname => (
           <Person
-            key={uname}
-            name={uname}
+            key={uname.name}
+            name={uname.name}
             handleRemoveContact={this.handleRemoveContact}
+            onlineStatus={uname.onlineStatus}
           />
         ));
       })

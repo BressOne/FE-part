@@ -4,6 +4,15 @@ import Chat from "../Chat/Chat.jsx";
 
 import AppContextProvider from "../Context/Context.jsx";
 
+import openSocket from "socket.io-client";
+let socket = openSocket("http://localhost:8000", {
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: Infinity
+});
+socket.on("hey", data => console.log(data));
+
 class Main extends Component {
   componentWillMount() {
     this.handshake();
@@ -51,7 +60,7 @@ class Main extends Component {
       states = this.state,
       logout = this.logout;
     return this.state.isLoggedIn ? (
-      <AppContextProvider.Provider value={{ update, states, logout }}>
+      <AppContextProvider.Provider value={{ update, states, logout, socket }}>
         <Chat />
       </AppContextProvider.Provider>
     ) : (
