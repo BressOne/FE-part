@@ -17,7 +17,7 @@ class ConversationWriteForm extends Component {
     this.sendSocketIO = this.sendSocketIO.bind(this);
   }
   sendSocketIO(states, e, socket) {
-    // socket = openSocket("http://localhost:8000", {
+    // socket = openSocket("https://chat-back-end.herokuapp.com:8000", {
     //   reconnection: true,
     //   reconnectionDelay: 1000,
     //   reconnectionDelayMax: 5000,
@@ -46,7 +46,7 @@ class ConversationWriteForm extends Component {
   //     toUsername: states.selectedUser,
   //     message: this.state.formMessage
   //   };
-  //   fetch("http://localhost:3000/postMessage", {
+  //   fetch("https://chat-back-end.herokuapp.com/postMessage", {
   //     credentials: "include",
   //     method: "post",
   //     headers: {
