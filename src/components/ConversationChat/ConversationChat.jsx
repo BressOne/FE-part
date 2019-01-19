@@ -34,6 +34,7 @@ class ConversationChat extends Component {
     })
       .then(response => response.json())
       .then(response => {
+        console.log(response);
         let result = response.map((item, i) => (
           <ChatMessage
             key={item.dateTime + i}
