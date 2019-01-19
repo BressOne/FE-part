@@ -5,7 +5,7 @@ import Chat from "../Chat/Chat.jsx";
 import AppContextProvider from "../Context/Context.jsx";
 
 import openSocket from "socket.io-client";
-let socket = openSocket("https://chat-back-end.herokuapp.com:8000", {
+let socket = openSocket("https://chat-back-end.herokuapp.com/", {
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
