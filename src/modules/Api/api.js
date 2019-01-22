@@ -1,4 +1,4 @@
-let apiAdress = "https://chat-back-end.herokuapp.com:3000";
+let apiAdress = "http://localhost:3000:3000";
 
 export function apiCall(url, options) {
   return fetch(url, options).then(response => {

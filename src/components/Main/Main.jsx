@@ -5,7 +5,7 @@ import Chat from "../Chat/Chat.jsx";
 import AppContextProvider from "../Context/Context.jsx";
 
 import openSocket from "socket.io-client";
-let socket = openSocket("https://chat-back-end.herokuapp.com/", {
+let socket = openSocket("http://localhost:8000/", {
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
@@ -32,7 +32,7 @@ class Main extends Component {
   handshake() {
     const thisClosure = this;
 
-    fetch("https://chat-back-end.herokuapp.com/handshake", {
+    fetch("http://localhost:3000/handshake", {
       credentials: "include",
       method: "get",
       headers: {

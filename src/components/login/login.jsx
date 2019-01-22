@@ -27,7 +27,7 @@ class Login extends Component {
     let responseMessge = this.state.responseMessge;
     const thisClosure = this;
 
-    fetch("https://chat-back-end.herokuapp.com/register", {
+    fetch("http://localhost:3000/register", {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -53,7 +53,7 @@ class Login extends Component {
     };
     let responseMessge = this.state.responseMessge;
     const thisClosure = this;
-    fetch("https://chat-back-end.herokuapp.com/login", {
+    fetch("http://localhost:3000/login", {
       credentials: "include",
       method: "post",
       headers: {
