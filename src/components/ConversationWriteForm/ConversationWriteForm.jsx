@@ -81,6 +81,7 @@ class ConversationWriteForm extends Component {
                 value={this.state.formMessage}
                 onChange={this.handleInputChange}
               />
+              {/* Remnants of avatar functional. Just lets leave it here for a while */}
               {/* <i className="fa fa-picture-o" />
               <i className="fa fa-file-o" /> */}
               <span
