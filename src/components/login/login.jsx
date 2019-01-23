@@ -39,7 +39,6 @@ class Login extends Component {
       .then(response => {
         responseMessge = response.message;
         thisClosure.setState({ responseMessge });
-        console.log(response.message);
       })
       .catch(err => {
         console.log(err);

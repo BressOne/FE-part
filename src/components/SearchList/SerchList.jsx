@@ -12,29 +12,16 @@ class SearchList extends Component {
   }
 
   handleAddContact(uname) {
-    let payload = { username: uname };
-    console.log(payload);
-    let responseMessge = this.state.responseMessge;
-    // const thisClosure = this;
-    fetch("http://localhost:3000/addContact", {
+    fetch(`http://localhost:3000/contacts/${uname}`, {
       method: "post",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      credentials: "include",
-      body: JSON.stringify(payload)
-    })
-      .then(response => response.json())
-
-      .then(response => {
-        responseMessge = response.message;
-        console.log(responseMessge);
-      })
-
-      .catch(err => {
-        console.log(err);
-      });
+      credentials: "include"
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   makeResultList(list) {

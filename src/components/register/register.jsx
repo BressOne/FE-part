@@ -1,3 +1,8 @@
+import React from "React";
+
+import Login from "../Login/Login.jsx";
+import Register from "../Register/Register.jsx";
+
 class LoginPage {
   handleSignUp() {
     this.setState({
@@ -23,3 +28,5 @@ class LoginPage {
     );
   }
 }
+
+export default LoginPage;

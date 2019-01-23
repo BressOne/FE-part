@@ -42,7 +42,6 @@ class Main extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         thisClosure.setState({ isLoggedIn: response.handshake });
       })
       .catch(err => {

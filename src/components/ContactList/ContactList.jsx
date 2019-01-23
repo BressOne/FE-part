@@ -16,7 +16,7 @@ class SearchList extends Component {
   }
   getContactList() {
     const thisClosure = this;
-    fetch("http://localhost:3000/getContacts", {
+    fetch("http://localhost:3000/contacts", {
       method: "get",
       headers: {
         Accept: "application/json",
@@ -44,21 +44,15 @@ class SearchList extends Component {
       });
   }
   handleRemoveContact(uname) {
-    let payload = { username: uname };
-    let responseMessge = this.state.responseMessge;
-    fetch("http://localhost:3000/deleteContact", {
+    fetch(`http://localhost:3000/contacts/${uname}`, {
       method: "delete",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      credentials: "include",
-      body: JSON.stringify(payload)
+      credentials: "include"
     })
-      .then(response => response.json())
-
-      .then(response => {
-        responseMessge = response.message;
+      .then(() => {
         this.getContactList();
       })
 

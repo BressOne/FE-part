@@ -37,18 +37,14 @@ class List extends Component {
     event.preventDefault();
     let searchResult = this.state.searchResult;
     const thisClosure = this;
-    const payload = {
-      searchValue: this.state.searchValue
-    };
 
-    fetch("http://localhost:3000/search_person", {
-      method: "post",
+    fetch(`http://localhost:3000/persons/${this.state.searchValue}`, {
+      method: "get",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      credentials: "include",
-      body: JSON.stringify(payload)
+      credentials: "include"
     })
       .then(response => response.json())
       .then(response => {
@@ -71,7 +67,6 @@ class List extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         logout({ isLoggedIn: false });
       })
       .catch(err => {

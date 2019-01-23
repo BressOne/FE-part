@@ -21,18 +21,14 @@ class ConversationChatChild extends Component {
 
   handleSearchFetch(username) {
     const thisClosure = this;
-    const payload = {
-      username: username
-    };
 
-    fetch("http://localhost:3000/getDialogueMessages", {
-      method: "post",
+    fetch(`http://localhost:3000/contacts/${username}/messages`, {
+      method: "get",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      credentials: "include",
-      body: JSON.stringify(payload)
+      credentials: "include"
     })
       .then(response => response.json())
       .then(response => {
